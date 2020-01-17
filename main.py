@@ -1,6 +1,9 @@
+import cv2
 import tkinter as tk
+import time
 #-SAJÁT-MODULOK-----------------------
 from lidar import object_in_range
+from camera import take_picture
 from database import Database
 
 FREE_PARKING_SPOTS = 50 # a parkolóház férőhelyeinek száma
@@ -8,7 +11,18 @@ FREE_TIME = 10          # az ingyenesen bent tölthető idő mértéke
 TARIFF = 100            # egy időegység után fizetendő pénz mennyisége
 
 if(object_in_range(port="COM3", angle=10, distance=30)):
-    pass # TODO: fotó készítése
+    while(True):
+        try:
+            picture = take_picture(cam_ID=0)
+            break
+        except:
+            for i in range(5, 0, -1):
+                print("Hiba! Művelet újrapróbálása {0} másodperc múlva!".format(i))
+                time.sleep(1)
+
+cv2.imshow("Image", picture)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 # TODO: karakterfelismerés a készített fotón
 
