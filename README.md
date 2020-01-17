@@ -15,8 +15,10 @@ Geiger Boldizsár Sándor|RP6OUG| [@gboldi19](https://github.com/gboldi19)
 
 ### Felhasznált eszközök:<br/>
 - Raspberry Pi 3 Model B/B+
+- Sense HAT modul
 - Slamtec RPLIDAR A1M8
 - Genius FaceCam 321 VGA
+- Xiaomi Mi Power Bank 2C 20000 mAh
 
 ### Függőségek:<br />
 Név | Elérhetőség
