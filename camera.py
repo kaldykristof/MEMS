@@ -1,5 +1,10 @@
 import cv2
 import time
+import string
+import random
+
+def random_string(length):
+    return ''.join(random.choice(string.ascii_letters) for i in range(length))
 
 def take_picture(cam_ID):
     # FOTÓ ELKÉSZÍTÉSE:
@@ -13,4 +18,8 @@ def take_picture(cam_ID):
     pic_contrast= cv2.convertScaleAbs(pic_grayscale, alpha = 1.25, beta = 0)
     (_, pic_threshold) = cv2.threshold(pic_contrast, 100, 255, cv2.THRESH_OTSU)
 
-    return pic_threshold
+    file_name = random_string(length=5)
+
+    cv2.imwrite("images/{0}.png".format(file_name), pic_threshold)
+
+    return file_name

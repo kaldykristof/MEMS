@@ -20,7 +20,8 @@ if(object_in_range(port="COM3", angle=10, distance=30)):
                 print("Hiba! Művelet újrapróbálása {0} másodperc múlva!".format(i))
                 time.sleep(1)
 
-cv2.imshow("Image", picture)
+img = cv2.imread("images/{0}.png".format(picture), 0)
+cv2.imshow("Image", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
