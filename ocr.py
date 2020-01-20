@@ -6,14 +6,18 @@ def validator(license_plate):
     if (len(license_plate) != 7):
         return False
     
-    for character in license_plate[0:3:1]:
+    hyphen_pos = license_plate.find('-')
+    if(hyphen_pos == -1):
+        return False
+    
+    for character in license_plate[0 : hyphen_pos : 1]:
         if (character.isalpha() == False):
             return False
     
-    if (license_plate[3] != "-"):
+    if (license_plate[hyphen_pos] != "-"):
         return False
     
-    for character in license_plate[4:7:1]:
+    for character in license_plate[hyphen_pos+1 : 7 : 1]:
         if (character.isnumeric() == False):
             return False
     
