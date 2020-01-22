@@ -17,13 +17,14 @@ TARIFF = 100            # egy időegység után fizetendő pénz mennyisége
 sH = MySenseHat(rotation=270)
 
 while (True):
-    if(object_in_range(port="COM3", angle=10, distance=30)):
+    if(object_in_range(port="/dev/ttyUSB0", angle=10, distance=30)):
         log("Objektum értékhatáron belül")
         sH.show_EM()
 
         while(True):
             log("Kép készitése folyamatban")
-            sH.flash()
+            sH.cam_take()
+            #sH.flash()
             image = take_picture(cam_ID=0)
 
             log("Karakterfelismerés folyamatban")
@@ -44,10 +45,10 @@ while (True):
                     time.sleep(1)
 
     log("Rendszám: {0}".format(license_plate))
+    sH.display(license_plate)
     log("Adatbáziskapcsolat létrehozása")
-
     db = Database(host="remotemysql.com", username="NB8WskrWz5", password="iN23mdSang", database="NB8WskrWz5")
-
+    sH.signaling()
     log("Adatbáziskapcsolat létre jött")
 
     if (db.contains(license_plate)):
