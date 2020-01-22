@@ -69,7 +69,7 @@ rainbow = [
 class MySenseHat(object):
     def __init__(self, rotation):
         self.sensehat = SenseHat()
-        self.sensehat.set_rotation(roation)
+        self.sensehat.set_rotation(rotation)
         self.sensehat.set_pixels(rainbow)
         sleep(1)
         self.sensehat.clear()
