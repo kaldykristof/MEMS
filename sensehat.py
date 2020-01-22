@@ -11,6 +11,17 @@ G = green
 W = white
 _ = nothing
 
+exclamation_mark = [
+    _, _, _, W, W, _, _, _,
+    _, _, _, W, W, _, _, _,
+    _, _, _, W, W, _, _, _,
+    _, _, _, W, W, _, _, _,
+    _, _, _, W, W, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, W, W, _, _, _,
+    _, _, _, W, W, _, _, _
+]
+
 check_mark = [
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
@@ -56,8 +67,9 @@ rainbow = [
 ]
 
 class MySenseHat(object):
-    def __init__(self):
+    def __init__(self, rotation):
         self.sensehat = SenseHat()
+        self.sensehat.set_rotation(roation)
         self.sensehat.set_pixels(rainbow)
         sleep(1)
         self.sensehat.clear()
@@ -77,6 +89,12 @@ class MySenseHat(object):
         sleep(1)
         self.clear()
 
+    def show_EM(self):
+        self.clear()
+        self.sensehat.set_pixels(exclamation_mark)
+        sleep(1)
+        self.clear()
+
     def flash(self):
         self.clear()
         self.sensehat.set_pixels(flash)
@@ -85,5 +103,5 @@ class MySenseHat(object):
 
     def display(self, message):
         self.clear()
-        self.sensehat.show_message(message, white)
+        self.sensehat.show_message(message, scroll_speed=0.05, text_colour=white)
         self.clear()
