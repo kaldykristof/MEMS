@@ -8,6 +8,7 @@ nothing = (  0,   0,   0)
 
 R = red
 G = green
+W = white
 _ = nothing
 
 check_mark = [
@@ -30,6 +31,17 @@ x = [
     _, _, R, _, _, R, _, _,
     _, R, _, _, _, _, R, _,
     _, _, _, _, _, _, _, _
+]
+
+flash = [
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W,
+    W, W, W, W, W, W, W, W
 ]
 
 rainbow = [
@@ -63,6 +75,12 @@ class MySenseHat(object):
         self.clear()
         self.sensehat.set_pixels(x)
         sleep(1)
+        self.clear()
+
+    def flash(self):
+        self.clear()
+        self.sensehat.set_pixels(flash)
+        sleep(0.1)
         self.clear()
 
     def display(self, message):
