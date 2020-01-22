@@ -3,6 +3,7 @@ import tkinter as tk
 import time
 import os
 #-SAJÁT-MODULOK-----------------------
+import sensehat
 from lidar import object_in_range
 from camera import take_picture
 from ocr import ocr, validator
@@ -15,6 +16,7 @@ TARIFF = 100            # egy időegység után fizetendő pénz mennyisége
 if(object_in_range(port="COM3", angle=10, distance=30)):
     print("Objektum észlelve...")
     while(True):
+        loading_anim()
         print("Kép készítése...")
         image = take_picture(cam_ID=0)
 
@@ -22,9 +24,11 @@ if(object_in_range(port="COM3", angle=10, distance=30)):
         license_plate = ocr(api_key="69e586ed1d88957", file_name=image)
 
         if (validator(license_plate) == True):
+            validation_good()
             break
         else:
             os.remove("images/{0}.png".format(image))
+            validation_bad()
             for i in range(5, 0, -1):
                 print("Hiba! Művelet újrapróbálása {0} másodperc múlva!".format(i))
                 time.sleep(1)
