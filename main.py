@@ -3,6 +3,7 @@ import tkinter as tk
 import time
 import os
 #-SAJÁT-MODULOK-----------------------
+from log import log
 import sensehat
 from lidar import object_in_range
 from camera import take_picture
@@ -15,34 +16,47 @@ TARIFF = 100            # egy időegység után fizetendő pénz mennyisége
 
 if(object_in_range(port="COM3", angle=10, distance=30)):
     print("Objektum észlelve...")
+    log("Objektum ertekhataron belul")
+
     while(True):
         loading_anim()
+
         print("Kép készítése...")
+        log("Kep keszitese folyamatban")
         image = take_picture(cam_ID=0)
 
         print("OCR folyamatban...")
+        log("Karakterfelismeres folyamatban")
         license_plate = ocr(api_key="69e586ed1d88957", file_name=image)
+        log('Kapott ertek: "{0}"'.format(license_plate))
 
         if (validator(license_plate) == True):
+            log("A kapott ertek megfelelo")
             validation_good()
             break
         else:
+            log("A kapott ertek nem megfelelo")
             os.remove("images/{0}.png".format(image))
             validation_bad()
             for i in range(5, 0, -1):
                 print("Hiba! Művelet újrapróbálása {0} másodperc múlva!".format(i))
                 time.sleep(1)
 
-print(license_plate)
+print("Rendszám: {0}".format(license_plate))
+
 print("Kapcsolat felvétele az adatbázissal...")
+log("Adatbaziskapcsolat letrehozasa")
 
 db = Database(host="remotemysql.com", username="NB8WskrWz5", password="iN23mdSang", database="NB8WskrWz5")
+
+log("Adatbaziskapcsolat letre jott")
 
 if (db.contains(license_plate)):
     # AUTÓ KIJÖN: bent töltött idő, fizetendő pénz kiszámítása, parkolóhely felszabadítása
     time_delta = db.remove(license_plate)
-    FREE_PARKING_SPOTS +=1
-    
+    log("Rekord eltavolitva az adatbazisbol")
+
+    FREE_PARKING_SPOTS += 1
     payment = (time_delta - FREE_TIME) * TARIFF if (time_delta > FREE_TIME) else 0
 
     window = tk.Tk()
@@ -57,6 +71,8 @@ if (db.contains(license_plate)):
 else:
     # AUTÓ BEMEGY: rendszám, aktuális idő elmentése, parkolóhely lefoglalása
     db.insert(license_plate)
+    log("Rekord hozzaadva az adatbazishoz")
+    
     FREE_PARKING_SPOTS -= 1
 
 db.disconnect()
