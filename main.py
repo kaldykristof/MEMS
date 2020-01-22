@@ -23,7 +23,7 @@ while (True):
     if(object_in_range(port="/dev/ttyUSB0", angle=10, distance=30)):
         log("Objektum értékhatáron belül")
         sH.show_EM()
-
+        buffer_count = 1
         while(True):
             log("Kép készitése folyamatban")
             sH.cam_take()
@@ -41,8 +41,12 @@ while (True):
             else:
                 log("A kapott érték nem megfelelő")
                 sH.show_X()
-                #os.remove("images/{0}.png".format(image))
-                
+                if (buffer_count <= 10):
+                    os.rename("images/{0}.png".format(image),"images/bad_{0}.png".format(image))
+                    buffer_count += 1
+                    print(buffer_count)
+                else:
+                    os.remove("images/{0}.png".format(image))
                 for i in range(5, 0, -1):
                     print("Hiba! Művelet újrapróbálása {0} másodperc múlva!".format(i))
                     time.sleep(1)
@@ -53,7 +57,7 @@ while (True):
     db = Database(host="remotemysql.com", username="NB8WskrWz5", password="iN23mdSang", database="NB8WskrWz5")
     sH.signaling()
     log("Adatbáziskapcsolat létre jött")
-
+    timeinterval = 10000
     if (db.contains(license_plate)):
         # AUTÓ KIJÖN: bent töltött idő, fizetendő pénz kiszámítása, parkolóhely felszabadítása
         time_delta = db.remove(license_plate)
@@ -68,8 +72,9 @@ while (True):
         tk.Label(window, text="Rendszám: {0}".format(license_plate), font=(None, 50)).pack()
         tk.Label(window, text="Bent töltött idő: {0} mp".format(time_delta), font=(None, 50)).pack()
         tk.Label(window, text="Fizetendő: {0} Ft".format(payment), font=(None, 50)).pack()
+        tk.Label(window, text="Ez az ablak automatikusan el fog tűnni {0:.0f} mp múlva!".format(timeinterval/1000), font=(None, 25)).pack()
         tk.Button(window, text="Kilépés", command=window.destroy, height=10, width=50).pack()
-
+        window.after(timeinterval, window.destroy)
         window.mainloop()
     else:
         # AUTÓ BEMEGY: rendszám, aktuális idő elmentése, parkolóhely lefoglalása
