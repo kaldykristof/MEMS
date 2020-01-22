@@ -26,11 +26,13 @@ Név | Elérhetőség
 OpenCV-Python|https://pypi.org/project/opencv-python/
 RPLIDAR|https://pypi.org/project/rplidar/
 MySQL-Connector-Python|https://pypi.org/project/mysql-connector-python/
-Raspberry Pi Sense HAT|https://pythonhosted.org/sense-hat/
+Sense HAT|https://pypi.org/project/sense-hat/
+requests|https://pypi.org/project/requests/
 
 ```sh
-pip install opencv-python rplidar mysql-connector-python
+pip install opencv-python rplidar mysql-connector-python sense-hat requests
 ```
+
 Szükséges adatbázis létrehozása:
 ```MySQL
 CREATE DATABASE parking_lot;
