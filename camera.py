@@ -8,7 +8,7 @@ def random_string(length):
 
 def take_picture(cam_ID):
     # FOTÓ ELKÉSZÍTÉSE:
-    cam = cv2.VideoCapture(cam_ID, cv2.CAP_DSHOW)
+    cam = cv2.VideoCapture(cam_ID)
     time.sleep(0.5)
     (_, picture) = cam.read()
     cam.release()

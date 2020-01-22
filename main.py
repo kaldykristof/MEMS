@@ -16,6 +16,9 @@ TARIFF = 100            # egy időegység után fizetendő pénz mennyisége
 
 sH = MySenseHat(rotation=270)
 
+if not os.path.exists("images"):
+    os.makedirs("images")
+
 while (True):
     if(object_in_range(port="/dev/ttyUSB0", angle=10, distance=30)):
         log("Objektum értékhatáron belül")
@@ -38,7 +41,7 @@ while (True):
             else:
                 log("A kapott érték nem megfelelő")
                 sH.show_X()
-                os.remove("images/{0}.png".format(image))
+                #os.remove("images/{0}.png".format(image))
                 
                 for i in range(5, 0, -1):
                     print("Hiba! Művelet újrapróbálása {0} másodperc múlva!".format(i))
