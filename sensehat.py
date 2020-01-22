@@ -3,11 +3,13 @@ from sense_hat import SenseHat
 
 red     = (255,   0,   0)
 green   = (  0, 255,   0)
+blue    = (  0, 0,   225)
 white   = (255, 255, 255)
 nothing = (  0,   0,   0)
 
 R = red
 G = green
+B = blue
 W = white
 _ = nothing
 
@@ -55,6 +57,61 @@ flash = [
     W, W, W, W, W, W, W, W
 ]
 
+photo_picto1 = [
+    _, _, _, _, _, _, _, _,
+    _, B, B, B, B, B, B, _,
+    _, B, _, _, B, _, B, _,
+    _, B, _, _, B, B, B, _,
+    _, B, _, _, _, _, B, _,
+    _, B, _, _, _, _, B, _,
+    _, B, B, B, B, B, B, _,
+    _, _, _, _, _, _, _, _
+]
+
+photo_picto2 = [
+    _, _, _, _, _, _, _, _,
+    _, B, B, B, B, B, B, _,
+    _, B, _, _, B, W, B, _,
+    _, B, _, _, B, B, B, _,
+    _, B, _, _, _, _, B, _,
+    _, B, _, _, _, _, B, _,
+    _, B, B, B, B, B, B, _,
+    _, _, _, _, _, _, _, _
+]
+
+eth_sign1 = [
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, B, B, _, _, _,
+    _, _, _, _, _, _, _, _
+]
+
+eth_sign2 = [
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, B, B, _, _, _,
+    _, _, B, _, _, B, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, B, B, _, _, _,
+    _, _, _, _, _, _, _, _
+]
+
+eth_sign3 = [
+    _, _, _, B, B, _, _, _,
+    _, _, B, _, _, B, _, _,
+    _, B, _, _, _, _, B, _,
+    _, _, _, B, B, _, _, _,
+    _, _, B, _, _, B, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, B, B, _, _, _,
+    _, _, _, _, _, _, _, _
+]
+
 rainbow = [
     [255, 0, 0], [255, 0, 0], [255, 87, 0], [255, 196, 0], [205, 255, 0], [95, 255, 0], [0, 255, 13], [0, 255, 122],
     [255, 0, 0], [255, 96, 0], [255, 205, 0], [196, 255, 0], [87, 255, 0], [0, 255, 22], [0, 255, 131], [0, 255, 240],
@@ -99,6 +156,26 @@ class MySenseHat(object):
         self.clear()
         self.sensehat.set_pixels(flash)
         sleep(0.1)
+        self.clear()
+    
+    def signaling(self):
+        self.clear()
+        self.sensehat.set_pixels(eth_sign1)
+        sleep(0.5)
+        self.sensehat.set_pixels(eth_sign2)
+        sleep(0.4)
+        self.sensehat.set_pixels(eth_sign3)
+        sleep(0.3)
+        self.clear()
+    
+    def cam_take(self):
+        self.clear()
+        self.sensehat.set_pixels(photo_picto1)
+        sleep(0.4)
+        self.sensehat.set_pixels(photo_picto2)
+        sleep(0.7)
+        self.sensehat.set_pixels(photo_picto1)
+        sleep(0.4)
         self.clear()
 
     def display(self, message):
