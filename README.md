@@ -19,6 +19,7 @@ Geiger Boldizsár Sándor|RP6OUG| [@gboldi19](https://github.com/gboldi19)
 - Slamtec RPLIDAR A1M8
 - Genius FaceCam 321
 - Xiaomi Mi Power Bank 2C 20000 mAh
+- Prusa i3 MK3S
 
 ### Függőségek:<br />
 Név | Elérhetőség
